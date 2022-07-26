@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 import { StoreService } from '../../../services/store.service';
 import { CQuestionActionTypeOptions } from '../question-action.constantes';
@@ -21,12 +21,12 @@ export class QuestionActionComponent implements OnInit, OnDestroy {
   public readonly typeOptions = CQuestionActionTypeOptions;
 
   public destroy$: Subject<void> = new Subject<void>();
-
   public questionForm: FormGroup;
   public pageType: string = EQuestionActionType.Create;
   public options: string[] = [];
   public questionType: string = EQuestionType.Single;
   public selectedId: string;
+  public selectedTypeId: number = 0;
 
   constructor(
     private storeService: StoreService,
@@ -38,9 +38,7 @@ export class QuestionActionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.checkQueryParams();
     this.initForm();
-    this.initQuestionById();
   }
 
   ngOnDestroy(): void {
@@ -59,8 +57,11 @@ export class QuestionActionComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (type) => {
           this.questionType = type?.toLowerCase();
+          if(this.questionType !== EQuestionType.Open) return;
+          this.options = [];
         }
       });
+    this.checkQueryParams();
   }
 
   checkQueryParams(): void {
@@ -69,6 +70,26 @@ export class QuestionActionComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (params) => {
           this.pageType = params['type'];
+          this.selectedId = params['id'];
+          this.getQuestionData();
+        }
+      });
+  }
+
+  getQuestionData(): void {
+    if(!this.selectedId) return;
+    this.storeService.getQuestionById(this.selectedId)
+      .subscribe({
+        next: (questionItem) => {
+          this.questionForm.setValue({
+            type: questionItem.type,
+            question: questionItem.data.question,
+            option: ''
+          });
+          this.selectedTypeId = this.typeOptions
+            .findIndex(option => option.value.toLowerCase() === questionItem.type);
+          if(questionItem.type === EQuestionType.Open || !questionItem.data.options?.length) return;
+          this.options = [...questionItem.data.options];
         }
       });
   }
@@ -88,7 +109,10 @@ export class QuestionActionComponent implements OnInit, OnDestroy {
   }
 
   createQuestion(): void {
-    if(this.questionForm.invalid) return;
+    if(this.questionType !== EQuestionType.Open.toLowerCase() && this.options.length < 2) {
+      this.notificationService.onError('There are must be two or more options');
+      return;
+    }
     const questionData: IQuestionItem = {
       id: this.storeService.generateUniqueId(),
       createAt: new Date(),
@@ -105,14 +129,11 @@ export class QuestionActionComponent implements OnInit, OnDestroy {
     this.notificationService.onSuccess('New question was created');
   }
 
-  initQuestionById(){
-    this.activatedRoute.queryParams
-      .subscribe({
-        next: (res) => this.selectedId = res?.['id']
-        });
-  }
-
   updateQuestion(): void {
+    if(this.questionType !== EQuestionType.Open.toLowerCase() && this.options.length < 2) {
+      this.notificationService.onError('There are must be two or more options');
+      return;
+    }
     const updatedData: IQuestionItem = {
       id: this.selectedId,
       updateAt: new Date(),

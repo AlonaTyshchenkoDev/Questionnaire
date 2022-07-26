@@ -17,17 +17,19 @@ export const questionReducer = (state = initialState, action: QuestionsActions) 
         ...state,
         [questionData.id]: questionData
       };
-    case  questionsActionsType.updateQuestionAction:
+    case questionsActionsType.updateQuestionAction:
       const updatedQuestionData = action.payload.questionData;
       const id = updatedQuestionData.id;
       return {
         ...state,
-        [id]: {...state[id], data: {...state[id].data,...updatedQuestionData.data}}
+        [id]: {...state[id], ...updatedQuestionData, data: {...state[id].data,...updatedQuestionData.data}}
       };
-    case  questionsActionsType.deleteQuestionAction:
+    case questionsActionsType.deleteQuestionAction:
       const newState = {...state};
       delete newState[action.payload.id];
       return newState;
+    case questionsActionsType.setInitialData:
+      return action.payload;
     default:
       return state;
   }

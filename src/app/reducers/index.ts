@@ -1,10 +1,8 @@
-import { ActionReducer, ActionReducerMap, createSelector, MetaReducer } from '@ngrx/store';
-
+import { ActionReducerMap, createSelector, MetaReducer } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 
 import { questionReducer, questionsFeatureKey, IQuestionState } from './questions/questions.reducer';
 import * as questionsSelectors from './questions/questions.selectors';
-import { addToLocalStorage } from './meta-reducer';
 
 export interface IState {
   [questionsFeatureKey]: IQuestionState;
@@ -18,5 +16,6 @@ export const getQuestionsState = (state: IState): IQuestionState => state[questi
 
 export const getQuestionsList = createSelector(getQuestionsState, questionsSelectors.selectQuestionsList);
 export const getQuestionById = createSelector(getQuestionsState, questionsSelectors.selectQuestionById);
+export const getQuestionState = createSelector(getQuestionsState, questionsSelectors.selectQuestionState);
 
-export const metaReducers: MetaReducer<IState>[] = [addToLocalStorage];
+export const metaReducers: MetaReducer<IState>[] = !environment.production ? [] : [];

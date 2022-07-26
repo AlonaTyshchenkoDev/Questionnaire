@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
-import { getQuestionById, getQuestionsList, IState } from '../reducers';
+import { getQuestionById, getQuestionsList, getQuestionState, IState } from '../reducers';
 import { IQuestionItem } from '../shared/question-item/question-item.interfaces';
-import { AddQuestionAction, DeleteQuestionAction, UpdateQuestionAction } from '../reducers/questions/questions.actions';
+import {
+  AddQuestionAction,
+  DeleteQuestionAction,
+  SetInitialDataAction,
+  UpdateQuestionAction
+} from '../reducers/questions/questions.actions';
+import { IQuestionState } from '../reducers/questions/questions.reducer';
 
 @Injectable({
   providedIn: 'root'
@@ -19,19 +25,29 @@ export class StoreService {
   }
 
   getQuestionById(id: string): Observable<IQuestionItem> {
-    return this.store.pipe(select(getQuestionById, { id }));
+    return this.store.pipe(select(getQuestionById, { id }),take(1));
   }
 
   addQuestion(questionData: IQuestionItem): void {
-    return this.store.dispatch(new AddQuestionAction({ questionData }));
+    this.store.dispatch(new AddQuestionAction({ questionData }));
   }
 
   updateQuestion(questionData: IQuestionItem): void {
-    return this.store.dispatch(new UpdateQuestionAction({ questionData }));
+    this.store.dispatch(new UpdateQuestionAction({ questionData }));
   }
 
   deleteQuestion(id: string): void {
-    return this.store.dispatch(new DeleteQuestionAction({ id }));
+    this.store.dispatch(new DeleteQuestionAction({ id }));
+  }
+
+  setInitialData(): void {
+    const payload = JSON.parse(localStorage.getItem('question_state') || '{}');
+    if(!Object.keys(payload).length) return;
+    this.store.dispatch(new SetInitialDataAction(payload));
+  }
+
+  getCurrentState(): Observable<IQuestionState> {
+    return this.store.pipe(select(getQuestionState));
   }
 
   generateUniqueId(): string {

@@ -5,14 +5,14 @@
     <div class="body-item">
       <mat-label>Question Type:</mat-label>
       <mat-radio-group formControlName="type">
-        <mat-radio-button [checked]="i === 0" color="primary" *ngFor="let option of typeOptions; index as i"
-                          [value]="option.value" >{{ option.value }} </mat-radio-button>
+        <mat-radio-button [checked]="selectedTypeId === i" color="primary" *ngFor="let option of typeOptions; index as i"
+                          [value]="option.value" >{{ option.value }}</mat-radio-button>
       </mat-radio-group>
     </div>
     <div class="body-item">
       <mat-label>Question Text:</mat-label>
       <mat-form-field appearance="fill">
-        <textarea matInput formControlName="question"placeholder="Please input question"></textarea>
+        <textarea matInput formControlName="question" placeholder="Please input question"></textarea>
       </mat-form-field>
       <mat-error *ngIf="questionForm.controls['question'].hasError('required')
                   && questionForm.controls['question'].touched">
@@ -41,9 +41,9 @@
   <div class="question-create-actions">
     <button routerLink="/question-management" mat-raised-button color="warn">Cancel</button>
     <button *ngIf="pageType === EQuestionActionType.Create" mat-raised-button color="primary"
-            (click)="createQuestion()">Create
+            (click)="createQuestion()" [disabled]="!questionForm.valid">Create
     </button>
     <button *ngIf="pageType === EQuestionActionType.Update" mat-raised-button color="primary"
-            (click)="updateQuestion()">Update</button>
+            (click)="updateQuestion()" [disabled]="!questionForm.valid">Update</button>
   </div>
 </div>
