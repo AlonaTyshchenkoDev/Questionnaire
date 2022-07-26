@@ -1,0 +1,46 @@
+@import "src/styles/colors";
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid rgba($blue, 0.2);
+
+  &-logo {
+    cursor: pointer;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 24px;
+    color: rgba($blue, 0.8);
+  }
+
+  &-menu {
+    &-list {
+      display: flex;
+
+      a.list-item {
+        margin-right: 10px;
+        font-size: 16px;
+
+        &.active-link {
+          font-weight: bold;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        &, &:active, &:focus, &:visited {
+          color: rgba($blue, 0.5);
+          text-decoration: none;
+        }
+
+        li {
+          list-style-type: none;
+        }
+      }
+    }
+  }
+}
+

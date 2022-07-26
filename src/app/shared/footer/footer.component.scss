@@ -1,0 +1,19 @@
+@import "src/styles/colors";
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-top: 1px solid rgba($blue, 0.2);
+
+  &-copyright {
+    color: $blue;
+  }
+
+  &-description {
+    margin-left: 10px;
+    max-width: 400px;
+    color: rgba($blue, 0.7);
+  }
+}

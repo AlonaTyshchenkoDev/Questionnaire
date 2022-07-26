@@ -1,0 +1,3 @@
+<div class="question-management" *ngFor="let item of itemList$ | async">
+  <app-question-item [itemData]="item" [isManagement]="true"></app-question-item>
+</div>

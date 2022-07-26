@@ -1,0 +1,49 @@
+<div class="question-create" [formGroup]="questionForm">
+  <div class="question-create-title page-title" *ngIf="pageType === EQuestionActionType.Create">Create Question</div>
+  <div class="question-create-title page-title" *ngIf="pageType === EQuestionActionType.Update">Update Question</div>
+  <div class="question-create-body">
+    <div class="body-item">
+      <mat-label>Question Type:</mat-label>
+      <mat-radio-group formControlName="type">
+        <mat-radio-button [checked]="selectedTypeId === i" color="primary" *ngFor="let option of typeOptions; index as i"
+                          [value]="option.value" >{{ option.value }}</mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div class="body-item">
+      <mat-label>Question Text:</mat-label>
+      <mat-form-field appearance="fill">
+        <textarea matInput formControlName="question" placeholder="Please input question"></textarea>
+      </mat-form-field>
+      <mat-error *ngIf="questionForm.controls['question'].hasError('required')
+                  && questionForm.controls['question'].touched">
+       <strong>Question field cannot be empty</strong>
+      </mat-error>
+    </div>
+    <div class="body-item" *ngIf="questionType !== EQuestionType.Open">
+      <mat-label>Question Options:</mat-label>
+      <mat-form-field appearance="fill">
+        <input matInput formControlName="option" placeholder="Please input option" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="addOption()">
+        <mat-icon>add</mat-icon>
+        Add option
+      </button>
+    </div>
+    <div class="body-item" *ngIf="options.length">
+      <mat-label>Options list:</mat-label>
+      <ul class="option-list">
+        <li *ngFor="let option of options; index as i">{{ i + 1 }}. {{ option }}
+          <mat-icon color="warn" (click)="deleteOption(i)">delete</mat-icon>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="question-create-actions">
+    <button routerLink="/question-management" mat-raised-button color="warn">Cancel</button>
+    <button *ngIf="pageType === EQuestionActionType.Create" mat-raised-button color="primary"
+            (click)="createQuestion()" [disabled]="!questionForm.valid">Create
+    </button>
+    <button *ngIf="pageType === EQuestionActionType.Update" mat-raised-button color="primary"
+            (click)="updateQuestion()" [disabled]="!questionForm.valid">Update</button>
+  </div>
+</div>

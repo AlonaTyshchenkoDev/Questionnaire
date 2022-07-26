@@ -1,0 +1,60 @@
+<div class="item">
+  <p class="item-question">Question: {{itemData.data.question}}</p>
+  <p class="item-type" *ngIf="isManagement">Question type: {{itemData.type}}</p>
+  <p class="item-data-answer" *ngIf="isAnswered">Answer: {{itemData.data.answer}}</p>
+  <p class="item-date" *ngIf="isManagement">Created at: {{itemData.createAt | date: 'medium'}}</p>
+
+  <div class="item-management">
+    <button mat-raised-button color="primary"
+            *ngIf="isManagement"
+            (click)="openModal(itemData.id)">Delete
+    </button>
+    <button mat-raised-button color="primary"
+            *ngIf="isManagement"
+            (click)="editQuestion(itemData.id)">Edit
+    </button>
+
+    <div  *ngIf="!isActive" class="item-answer" [formGroup]="answerForm">
+      <div *ngIf="itemData.type === EQuestionType.Single">
+        <mat-radio-group class="item-answer">
+          <mat-radio-button *ngFor="let option of itemData.data.options" color="primary"
+                             [value]="option" [(ngModel)]="singleOption"
+                            [ngModelOptions]="{standalone: true}" ngDefaultControl>{{option}}
+          </mat-radio-button>
+          <button mat-raised-button color="primary"
+                  (click)="addAnswer(itemData.id)">Add</button>
+        </mat-radio-group>
+      </div>
+
+      <ng-container *ngIf="itemData.type === EQuestionType.Multiple">
+          <section *ngFor="let option of multipleOptions;index as idx">
+            <p><mat-checkbox color="primary" [value]="option.name"
+                             [checked]="option.isChecked"
+                             (change)="selectOption(idx)"
+                             >{{option.name}}</mat-checkbox></p>
+          </section>
+          <button mat-raised-button color="primary"
+                  (click)="addAnswer(itemData.id)">Add</button>
+      </ng-container>
+
+      <div *ngIf="itemData.type === EQuestionType.Open">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Answer</mat-label>
+          <input matInput placeholder="Answer" formControlName="open">
+        </mat-form-field>
+        <button mat-raised-button color="primary"
+                (click)="addAnswer(itemData.id) ">Add</button>
+      </div>
+    </div>
+    <button mat-raised-button color="primary"
+            *ngIf="!isManagement && isActive"
+            (click)="isActive = !isActive"
+            [disabled]="isAnswered">Add answer
+    </button>
+    <button mat-raised-button color="primary"
+            *ngIf="isAnswered"
+            (click)="deleteAnswer(itemData.id)">Delete answer
+    </button>
+  </div>
+</div>
+

@@ -1,0 +1,62 @@
+.question-create {
+  &-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .body-item {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 500px;
+
+      .option-list {
+        li {
+          display: flex;
+          align-items: center;
+
+          mat-icon {
+            margin-left: 10px;
+          }
+        }
+      }
+
+      button {
+        max-width: 150px;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      mat-label {
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      mat-radio-group mat-radio-button {
+        margin-right: 10px;
+      }
+
+      mat-radio-group mat-radio-button:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  &-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    button {
+      margin-right: 20px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
