@@ -1,0 +1,13 @@
+<div class="question-list">
+  <div class="question-list-unanswered" >
+    <div *ngFor="let item of unansweredList">
+      <app-question-item [itemData]="item"></app-question-item>
+    </div>
+  </div>
+
+  <div class="question-list-answered">
+    <div *ngFor="let item of answeredList">
+      <app-question-item [itemData]="item" [isAnswered]="true"></app-question-item>
+    </div>
+  </div>
+</div>

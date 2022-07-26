@@ -1,0 +1,23 @@
+.item{
+  min-width: 300px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid blue;
+  border-radius: 5px;
+
+  button{
+    margin-right: 10px;
+  }
+}
+
+.item-answer{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  button{
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+  }
+}
