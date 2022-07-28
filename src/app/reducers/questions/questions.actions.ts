@@ -7,7 +7,8 @@ export enum questionsActionsType {
   addQuestionAction = '[Questions] addQuestionAction',
   updateQuestionAction = '[Questions] updateQuestionAction',
   deleteQuestionAction = '[Questions] deleteQuestionAction',
-  setInitialData = '[Questions] setInitialData'
+  setInitialData = '[Questions] setInitialData',
+  changeAnswersAction = '[Questions] changeAnswersAction',
 }
 
 export class AddQuestionAction implements Action {
@@ -21,6 +22,13 @@ export class UpdateQuestionAction implements Action {
   readonly type = questionsActionsType.updateQuestionAction;
 
   constructor(public payload: { questionData: IQuestionItem }) {
+  }
+}
+
+export class ChangeAnswersAction implements Action {
+  readonly type = questionsActionsType.changeAnswersAction;
+
+  constructor(public payload: { id:string, data: {answer: string[]} }) {
   }
 }
 
@@ -38,4 +46,4 @@ export class SetInitialDataAction implements Action {
   }
 }
 
-export type QuestionsActions = AddQuestionAction | UpdateQuestionAction | DeleteQuestionAction | SetInitialDataAction;
+export type QuestionsActions = AddQuestionAction | ChangeAnswersAction |UpdateQuestionAction | DeleteQuestionAction | SetInitialDataAction;

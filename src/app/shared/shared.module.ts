@@ -22,7 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     HeaderComponent,
     FooterComponent,
     QuestionItemComponent,
-    ModalComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,7 @@ import { Observable, take } from 'rxjs';
 import { getQuestionById, getQuestionsList, getQuestionState, IState } from '../reducers';
 import { IQuestionItem } from '../shared/question-item/question-item.interfaces';
 import {
-  AddQuestionAction,
+  AddQuestionAction, ChangeAnswersAction,
   DeleteQuestionAction,
   SetInitialDataAction,
   UpdateQuestionAction
@@ -30,6 +30,10 @@ export class StoreService {
 
   addQuestion(questionData: IQuestionItem): void {
     this.store.dispatch(new AddQuestionAction({ questionData }));
+  }
+
+  changeAnswers(id: string, answer: string[]): void {
+    this.store.dispatch(new ChangeAnswersAction({id, data: {answer}}));
   }
 
   updateQuestion(questionData: IQuestionItem): void {

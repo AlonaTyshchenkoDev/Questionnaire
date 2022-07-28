@@ -74,18 +74,11 @@ export class QuestionItemComponent implements OnInit {
 
   addAnswer(id: string): void {
     this.isActive = true;
-    const answered = {
-      id,
-      data: {
-        answer: this.getAnswerList()
-      }
-    }
-    this.storeService.updateQuestion(answered);
+    this.storeService.changeAnswers(id, this.getAnswerList());
   }
 
   deleteAnswer(id: string): void {
-    const deletedAnswer = {id, data: {answer: []}};
-    this.storeService.updateQuestion(deletedAnswer);
+    this.storeService.changeAnswers(id,[]);
   }
 
   selectOption(idx: number): void {

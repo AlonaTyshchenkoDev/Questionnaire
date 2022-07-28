@@ -24,6 +24,13 @@ export const questionReducer = (state = initialState, action: QuestionsActions) 
         ...state,
         [id]: {...state[id], ...updatedQuestionData, data: {...state[id].data,...updatedQuestionData.data}}
       };
+    case questionsActionsType.changeAnswersAction:
+      const questionId = action.payload.id;
+      const answer = action.payload.data.answer;
+      return {
+        ...state,
+        [questionId]: {...state[questionId], data: {...state[questionId].data, answer: [...answer]}}
+      };
     case questionsActionsType.deleteQuestionAction:
       const newState = {...state};
       delete newState[action.payload.id];
