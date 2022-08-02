@@ -33,9 +33,9 @@ export class QuestionListComponent implements OnInit, OnDestroy {
     this.list$
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-        next: (res) => {
+        next: (questionItem) => {
           const newDate = new Date();
-          const sortList = res.sort((a, b) =>
+          const sortList = questionItem.sort((a, b) =>
             new Date(b?.createAt || newDate).getTime() - new Date(a?.createAt || newDate).getTime());
           this.unansweredList = sortList.filter(item => !item.data.answer.length);
           this.answeredList = sortList.filter(item => item.data.answer.length);

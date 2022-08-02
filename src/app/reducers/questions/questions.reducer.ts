@@ -26,7 +26,7 @@ export const questionReducer = (state = initialState, action: QuestionsActions) 
       };
     case questionsActionsType.changeAnswersAction:
       const questionId = action.payload.id;
-      const answer = action.payload.data.answer;
+      const answer = action.payload.answer;
       return {
         ...state,
         [questionId]: {...state[questionId], data: {...state[questionId].data, answer: [...answer]}}

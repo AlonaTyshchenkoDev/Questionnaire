@@ -28,7 +28,7 @@ export class UpdateQuestionAction implements Action {
 export class ChangeAnswersAction implements Action {
   readonly type = questionsActionsType.changeAnswersAction;
 
-  constructor(public payload: { id:string, data: {answer: string[]} }) {
+  constructor(public payload: { id:string, answer: string[] }) {
   }
 }
 
