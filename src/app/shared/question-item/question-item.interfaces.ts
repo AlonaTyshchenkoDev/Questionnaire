@@ -1,11 +1,11 @@
 export interface IQuestionItem {
   id: string,
   createAt?: Date,
-  updateAt?: Date,
-  type?: string,
+  updateAt: Date,
+  type: string,
   data: {
-    question?: string,
-    options?: string[],
+    question: string,
+    options: string[],
     answer: string[]
   }
 }

@@ -16,13 +16,14 @@ import { ModalComponent } from './question-item/modal/modal.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
     QuestionItemComponent,
-    ModalComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +38,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatDialogModule,
     MatExpansionModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    HttpClientModule
   ],
     exports: [
         HeaderComponent,

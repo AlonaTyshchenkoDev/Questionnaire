@@ -5,12 +5,13 @@ import { Observable, take } from 'rxjs';
 import { getQuestionById, getQuestionsList, getQuestionState, IState } from '../reducers';
 import { IQuestionItem } from '../shared/question-item/question-item.interfaces';
 import {
-  AddQuestionAction,
+  AddQuestionAction, ChangeAnswersAction,
   DeleteQuestionAction,
   SetInitialDataAction,
   UpdateQuestionAction
 } from '../reducers/questions/questions.actions';
 import { IQuestionState } from '../reducers/questions/questions.reducer';
+import { LogInAction, LogOutAction } from '../reducers/auth/auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,10 @@ export class StoreService {
 
   addQuestion(questionData: IQuestionItem): void {
     this.store.dispatch(new AddQuestionAction({ questionData }));
+  }
+
+  changeAnswers(id: string, answer: string[]): void {
+    this.store.dispatch(new ChangeAnswersAction({id, answer}));
   }
 
   updateQuestion(questionData: IQuestionItem): void {
@@ -52,5 +57,13 @@ export class StoreService {
 
   generateUniqueId(): string {
     return Math.random().toString(16).slice(2);
+  }
+
+  logInStore(user: {email: string, password: string}): void {
+    this.store.dispatch(new LogInAction(user));
+  }
+
+  logOutStore(): void {
+    this.store.dispatch(new LogOutAction());
   }
 }

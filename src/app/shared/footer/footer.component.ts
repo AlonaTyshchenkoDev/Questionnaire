@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../modules/login-page/services/auth.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,4 +8,10 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
   public currentYear = new Date().getFullYear();
+
+  constructor(private auth: AuthService) {
+  }
+  logOut(): void {
+    this.auth.logout();
+  }
 }
