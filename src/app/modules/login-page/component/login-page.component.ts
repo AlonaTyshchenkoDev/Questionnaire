@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AuthService } from '../services/auth.service';
 import { StoreService } from '../../../services/store.service';
 
 @Component({
@@ -20,12 +19,12 @@ export class LoginPageComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
     private storeService: StoreService
   ) {
   }
 
   submitForm(): void {
+    if(this.loginForm.invalid) return;
     const user = this.loginForm.value;
     this.storeService.logInStore(user);
   }

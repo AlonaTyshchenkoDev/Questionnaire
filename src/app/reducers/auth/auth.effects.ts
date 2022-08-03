@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 
 import { authActionsType, LogInAction } from './auth.actions';
 import { AuthService } from '../../modules/login-page/services/auth.service';
-import { IApiUser } from '../../modules/login-page/login-page.interfaces';
 
 @Injectable()
 export class AuthEffects {
