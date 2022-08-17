@@ -1,8 +1,8 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 
 import { StoreService } from './services/store.service';
 import { IQuestionState } from './reducers/questions/questions.reducer';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',

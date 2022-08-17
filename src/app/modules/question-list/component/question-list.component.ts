@@ -16,9 +16,7 @@ export class QuestionListComponent implements OnInit, OnDestroy {
   public answeredList: IQuestionItem[];
   public destroy$: Subject<void> = new Subject<void>();
 
-  constructor(
-    private storeService: StoreService
-  ) { }
+  constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
     this.getQuestionsList();
