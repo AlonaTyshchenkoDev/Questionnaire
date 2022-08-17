@@ -8,15 +8,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { QuestionItemComponent } from './question-item/component/question-item.component';
 import { ModalComponent } from './question-item/modal/modal.component';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { HttpClientModule } from '@angular/common/http';
     MatExpansionModule,
     FormsModule,
     MatCheckboxModule,
-    HttpClientModule
   ],
     exports: [
         HeaderComponent,

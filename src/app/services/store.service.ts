@@ -11,7 +11,6 @@ import {
   UpdateQuestionAction
 } from '../reducers/questions/questions.actions';
 import { IQuestionState } from '../reducers/questions/questions.reducer';
-import { LogInAction, LogOutAction } from '../reducers/auth/auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -57,13 +56,5 @@ export class StoreService {
 
   generateUniqueId(): string {
     return Math.random().toString(16).slice(2);
-  }
-
-  logInStore(user: {email: string, password: string}): void {
-    this.store.dispatch(new LogInAction(user));
-  }
-
-  logOutStore(): void {
-    this.store.dispatch(new LogOutAction());
   }
 }

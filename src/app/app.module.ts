@@ -5,13 +5,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { delay, first } from 'rxjs';
 
 import { reducers, metaReducers, IState, getQuestionsList } from './reducers';
 import { environment } from '../environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { StoreService } from './services/store.service';
-import { delay, first } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
 
 function initializeApp(dataService: StoreService, store: Store<IState>): () => Promise<boolean> {
   return () => new Promise(async (resolve, reject) => {
@@ -38,8 +37,7 @@ function initializeApp(dataService: StoreService, store: Store<IState>): () => P
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     BrowserAnimationsModule,
-    SharedModule,
-    HttpClientModule
+    SharedModule
   ],
   providers: [{
     provide: APP_INITIALIZER,
