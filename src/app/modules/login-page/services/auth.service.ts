@@ -19,7 +19,7 @@ export class AuthService {
     private storeService: StoreService) { }
 
   login(user: IUser): Observable<IApiUser>{
-    return this.http.post<IApiUser>(this.loginUrl, user)
+    return this.http.post<IApiUser>(this.loginUrl, user);
   }
 
   logout(): void {
